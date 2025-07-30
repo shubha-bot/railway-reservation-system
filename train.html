@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Train Timetable</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/railway-logo.png">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      margin: 0;
+      color: #333;
+    }
+
+    header {
+      background: #001f3f;
+      padding: 1rem 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+    }
+
+    .navbar .logo {
+      color: #fff;
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-shadow: 1px 1px 5px #ffcc00;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .navbar ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffcc00;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #001f3f;
+      text-shadow: 1px 1px 2px #ccc;
+    }
+
+    #generateBtn {
+      display: block;
+      margin: 20px auto;
+      padding: 12px 30px;
+      font-size: 16px;
+      background-color: #0074D9;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    #generateBtn:hover {
+      background-color: #005fa3;
+      box-shadow: 0 0 15px #00c6ff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #0074D9;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f9ff;
+    }
+
+    .available {
+      color: green;
+      font-weight: bold;
+    }
+
+    .waiting-list {
+      color: red;
+      font-weight: bold;
+    }
+
+    .proceed-btn {
+      padding: 8px 16px;
+      background-color: #2ECC40;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .proceed-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #2ECC40;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      tr {
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+      }
+
+      th {
+        display: none;
+      }
+
+      td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+      }
+
+      td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Railway Reservation</div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/train.html">Trains</a></li>
+        <li><a href="/login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="container">
+    <h1>Random Train Timetable</h1>
+    <button id="generateBtn">Generate Timetable</button>
+    <table id="trainTable">
+      <thead>
+        <tr>
+          <th>Train Name</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Departure</th>
+          <th>Arrival</th>
+          <th>Availability</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="trainTableBody">
+        <!-- Filled by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const trainNumber = params.get('train_number') || "12345";
+    const trainName = params.get('train_name') || "Superfast Express";
+    const departureTime = params.get('departure_time') || "10:00 AM";
+    const arrivalTime = params.get('arrival_time') || "6:00 PM";
+
+    const cities = ['Noida', 'Kolkata', 'Mumbai', 'Chennai', 'Pune', 'Bhopal', 'Lucknow', 'Patna', 'Nagpur'];
+
+    function getRandomCity(from) {
+      let to;
+      do {
+        to = cities[Math.floor(Math.random() * cities.length)];
+      } while (to === from);
+      return to;
+    }
+
+    function generateRandomAvailability() {
+      return Math.random() < 0.7 ? 'Available' : 'Waiting List';
+    }
+
+    function generateRandomTrainDetails() {
+      const from = cities[Math.floor(Math.random() * cities.length)];
+      const to = getRandomCity(from);
+      const availability = generateRandomAvailability();
+
+      return {
+        trainName,
+        from,
+        to,
+        departure: departureTime,
+        arrival: arrivalTime,
+        availability
+      };
+    }
+
+    function populateTable() {
+      const tbody = document.getElementById('trainTableBody');
+      tbody.innerHTML = '';
+
+      const train = generateRandomTrainDetails();
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td data-label="Train Name">${train.trainName}</td>
+        <td data-label="From">${train.from}</td>
+        <td data-label="To">${train.to}</td>
+        <td data-label="Departure">${train.departure}</td>
+        <td data-label="Arrival">${train.arrival}</td>
+        <td data-label="Availability" class="${train.availability === 'Available' ? 'available' : 'waiting-list'}">${train.availability}</td>
+        <td data-label="Action">
+          ${train.availability === 'Available'
+            ? `<button class="proceed-btn" onclick="proceedToBooking('${train.trainName}', '${train.from}', '${train.to}', '${train.departure}', '${train.arrival}')">Proceed to Booking</button>`
+            : 'N/A'}
+        </td>
+      `;
+      tbody.appendChild(row);
+    }
+
+    function proceedToBooking(trainName, from, to, departure, arrival) {
+      const params = new URLSearchParams({
+        train_name: trainName,
+        from: from,
+        to: to,
+        departure: departure,
+        arrival: arrival
+      });
+      window.location.href = `booking.html?${params.toString()}`;
+    }
+
+    document.getElementById('generateBtn').addEventListener('click', populateTable);
+    window.addEventListener('load', populateTable);
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+/* Body Style */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #d7e1ec, #f5fafd);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Main Container */
+.main-container {
+  max-width: 1000px;
+  width: 100%;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+/* Member Frame */
+.member-frame {
+  flex: 1 1 250px;
+  text-align: center;
+  padding: 20px;
+}
+
+.member-frame img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #4a90e2;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  margin-bottom: 15px;
+}
+
+/* Welcome Box */
+.welcome-container {
+  flex: 2 1 600px;
+}
+
+.welcome-box {
+  background-color: #f0f8ff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.1);
+}
+
+.welcome-box h1 {
+  color: #004080;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.welcome-box p {
+  font-size: 18px;
+  color: #333;
+}
+
+/* Guidelines */
+.guidelines {
+  margin-top: 20px;
+}
+
+.guidelines h2 {
+  color: #003366;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.guidelines ul {
+  padding-left: 20px;
+  color: #333;
+}
+
+.guidelines li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+/* Button Style */
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background-color: #004080;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #0066cc;
+}

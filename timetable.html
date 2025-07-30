@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Train Timetable</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    header {
+      background: #003366;
+      color: white;
+      padding: 10px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .login-link {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      background: #0055aa;
+      padding: 6px 12px;
+      border-radius: 5px;
+    }
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #333;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background: #004080;
+      color: white;
+    }
+    .book-link {
+      display: inline-block;
+      padding: 6px 10px;
+      margin-top: 5px;
+      background-color: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Train Timetable</h1>
+    <a href="login.html" class="login-link">Login</a>
+  </header>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Train Number</th>
+        <th>Train Name</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Days</th>
+        <th>Check Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>RD-101</td><td>Rajdhani Express</td><td>New Delhi</td><td>Howrah</td><td>16:30</td><td>06:00</td><td>Daily</td><td><a class="book-link" href="train.html?train_number=RD-101&train_name=Rajdhani+Express&departure_time=16:30&arrival_time=06:00">Check</a></td></tr>
+      <tr><td>GH-205</td><td>Gorakhdham Express</td><td>Gorakhpur</td><td>Hisar</td><td>10:00</td><td>22:45</td><td>Daily</td><td><a class="book-link" href="train.html?train_number=GH-205&train_name=Gorakhdham+Express&departure_time=10:00&arrival_time=22:45">Check</a></td></tr>
+      <tr><td>MR-351</td><td>Mumbai Rajdhani</td><td>Mumbai</td><td>New Delhi</td><td>16:25</td><td>08:35</td><td>Daily</td><td><a class="book-link" href="train.html?train_number=MR-351&train_name=Mumbai+Rajdhani&departure_time=16:25&arrival_time=08:35">Check</a></td></tr>
+      <tr><td>KL-776</td><td>Kalindi Express</td><td>Kanpur</td><td>Bhiwani</td><td>17:15</td><td>09:20</td><td>Mon, Thu, Sat</td><td><a class="book-link" href="train.html?train_number=KL-776&train_name=Kalindi+Express&departure_time=17:15&arrival_time=09:20">Check</a></td></tr>
+      <tr><td>SH-890</td><td>Shatabdi Express</td><td>Delhi</td><td>Chandigarh</td><td>07:10</td><td>11:00</td><td>Daily</td><td><a class="book-link" href="train.html?train_number=SH-890&train_name=Shatabdi+Express&departure_time=07:10&arrival_time=11:00">Check</a></td></tr>
+      <tr><td>MT-112</td><td>Magadh Express</td><td>Islampur</td><td>New Delhi</td><td>15:30</td><td>11:10</td><td>Daily</td><td><a class="book-link" href="train.html?train_number=MT-112&train_name=Magadh+Express&departure_time=15:30&arrival_time=11:10">Check</a></td></tr>
+      <tr><td>RP-554</td><td>Raptisagar Express</td><td>Ernakulam</td><td>Barauni</td><td>06:50</td><td>16:40</td><td>Tue, Fri</td><td><a class="book-link" href="train.html?train_number=RP-554&train_name=Raptisagar+Express&departure_time=06:50&arrival_time=16:40">Check</a></td></tr>
+      <tr><td>SE-233</td><td>Sachkhand Express</td><td>Amritsar</td><td>Nanded</td><td>05:35</td><td>15:30</td><td>Daily</td><td><a class="book-link" href="train.html?train_number=SE-233&train_name=Sachkhand+Express&departure_time=05:35&arrival_time=15:30">Check</a></td></tr>
+      <tr><td>NR-999</td><td>New Rajdhani</td><td>Bangalore</td><td>Patna</td><td>20:15</td><td>06:10</td><td>Wed, Sun</td><td><a class="book-link" href="train.html?train_number=NR-999&train_name=New+Rajdhani&departure_time=20:15&arrival_time=06:10">Check</a></td></tr>
+      <tr><td>BC-401</td><td>Black Cat Express</td><td>Bhopal</td><td>Chennai</td><td>08:00</td><td>20:45</td><td>Mon, Sat</td><td><a class="book-link" href="train.html?train_number=BC-401&train_name=Black+Cat+Express&departure_time=08:00&arrival_time=20:45">Check</a></td></tr>
+    </tbody>
+  </table>
+</body>
+</html>

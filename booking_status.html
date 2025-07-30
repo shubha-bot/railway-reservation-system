@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Status</title>
+  <link rel="stylesheet" href="booking_status.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #003366;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .no-bookings {
+      text-align: center;
+      color: #888;
+      font-size: 18px;
+      margin-top: 30px;
+    }
+
+    .back-button {
+      margin-top: 20px;
+      display: block;
+      text-align: center;
+    }
+
+    .back-button a {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    .back-button a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Your Bookings</h1>
+    
+    <div id="bookingTable"></div>
+
+    <div class="back-button">
+      <a href="welcome.html">Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+    const bookingTable = document.getElementById("bookingTable");
+
+    if (bookings.length === 0) {
+      bookingTable.innerHTML = `<p class="no-bookings">No bookings found.</p>`;
+    } else {
+      let tableHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Passenger Name</th>
+              <th>Age</th>
+              <th>Gender</th>
+              <th>Coach</th>
+              <th>Train</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Departure</th>
+              <th>Arrival</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      bookings.forEach(b => {
+        tableHTML += `
+          <tr>
+            <td>${b.name}</td>
+            <td>${b.age}</td>
+            <td>${b.gender}</td>
+            <td>${b.coach}</td>
+            <td>${b.train_name}</td>
+            <td>${b.from}</td>
+            <td>${b.to}</td>
+            <td>${b.departure}</td>
+            <td>${b.arrival}</td>
+          </tr>
+        `;
+      });
+
+      tableHTML += `</tbody></table>`;
+      bookingTable.innerHTML = tableHTML;
+    }
+  </script>
+</body>
+</html>

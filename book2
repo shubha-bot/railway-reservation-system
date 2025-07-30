@@ -1,0 +1,39 @@
+document.getElementById("bookingForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const trainData = JSON.parse(localStorage.getItem("selectedTrain"));
+
+  const passenger = {
+    train_no: trainData.train_no,
+    train_name: trainData.name,
+    from: trainData.from,
+    to: trainData.to,
+    departure: trainData.departure,
+    arrival: trainData.arrival,
+    name: document.getElementById("name").value,
+    age: document.getElementById("age").value,
+    gender: document.getElementById("gender").value,
+    coach: document.getElementById("coach").value
+  };
+
+  fetch("php/book_ticket.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(passenger),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert("Booking Confirmed!\nThank you, " + passenger.name);
+        window.location.href = "booking_status.html";
+      } else {
+        alert("Booking failed: " + data.message);
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("An error occurred while booking.");
+    });
+});
